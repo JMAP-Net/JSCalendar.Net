@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using JSCalendar.Net.Enums;
 
 namespace JSCalendar.Net;
 
@@ -35,10 +36,10 @@ public sealed class Alert
 
     /// <summary>
     ///     How to alert the user (Section 4.5.2).
-    ///     Default: "display"
+    ///     Default: Display
     /// </summary>
     [JsonPropertyName("action")]
-    public string Action { get; init; } = "display";
+    public AlertAction Action { get; init; } = AlertAction.Display;
 }
 
 /// <summary>
@@ -61,10 +62,10 @@ public sealed class OffsetTrigger
 
     /// <summary>
     ///     Relation to the event time (start or end).
-    ///     Default: "start"
+    ///     Default: Start
     /// </summary>
     [JsonPropertyName("relativeTo")]
-    public string RelativeTo { get; init; } = "start";
+    public TriggerRelation RelativeTo { get; init; } = TriggerRelation.Start;
 }
 
 /// <summary>

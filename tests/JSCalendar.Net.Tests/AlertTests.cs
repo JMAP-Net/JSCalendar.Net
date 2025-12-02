@@ -1,4 +1,5 @@
 using System.Text.Json;
+using JSCalendar.Net.Enums;
 
 namespace JSCalendar.Net.Tests;
 
@@ -20,7 +21,7 @@ public class AlertTests
 
         // Assert
         Assert.Equal("Alert", alert.Type);
-        Assert.Equal("display", alert.Action);
+        Assert.Equal(AlertAction.Display, alert.Action);
         Assert.IsType<OffsetTrigger>(alert.Trigger);
     }
 
@@ -37,11 +38,11 @@ public class AlertTests
             {
                 When = when
             },
-            Action = "email"
+            Action = AlertAction.Email
         };
 
         // Assert
-        Assert.Equal("email", alert.Action);
+        Assert.Equal(AlertAction.Email, alert.Action);
         Assert.IsType<AbsoluteTrigger>(alert.Trigger);
         var trigger = (AbsoluteTrigger)alert.Trigger;
         Assert.Equal(when, trigger.When);
@@ -59,7 +60,7 @@ public class AlertTests
         // Assert
         Assert.Equal("OffsetTrigger", trigger.Type);
         Assert.Equal("-PT30M", trigger.Offset);
-        Assert.Equal("start", trigger.RelativeTo);
+        Assert.Equal(TriggerRelation.Start, trigger.RelativeTo);
     }
 
     [Fact]
@@ -69,11 +70,11 @@ public class AlertTests
         var trigger = new OffsetTrigger
         {
             Offset = "-PT5M",
-            RelativeTo = "end"
+            RelativeTo = TriggerRelation.End
         };
 
         // Assert
-        Assert.Equal("end", trigger.RelativeTo);
+        Assert.Equal(TriggerRelation.End, trigger.RelativeTo);
     }
 
     [Fact]
@@ -103,7 +104,7 @@ public class AlertTests
             {
                 Offset = "-PT15M"
             },
-            Action = "display"
+            Action = AlertAction.Display
         };
 
         // Act
@@ -165,6 +166,6 @@ public class AlertTests
 
         // Assert
         Assert.NotNull(alert);
-        Assert.Equal("display", alert.Action);
+        Assert.Equal(AlertAction.Display, alert.Action);
     }
 }

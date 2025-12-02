@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using JSCalendar.Net.Enums;
 
 namespace JSCalendar.Net;
 
@@ -183,17 +184,17 @@ public sealed class Task
 
     /// <summary>
     ///     Free/busy status (Section 4.4.2).
-    ///     Default: "busy"
+    ///     Default: Busy
     /// </summary>
     [JsonPropertyName("freeBusyStatus")]
-    public string FreeBusyStatus { get; init; } = "busy";
+    public FreeBusyStatus FreeBusyStatus { get; init; } = FreeBusyStatus.Busy;
 
     /// <summary>
     ///     Privacy (Section 4.4.3).
-    ///     Default: "public"
+    ///     Default: Public
     /// </summary>
     [JsonPropertyName("privacy")]
-    public string Privacy { get; init; } = "public";
+    public Privacy Privacy { get; init; } = Privacy.Public;
 
     /// <summary>
     ///     Reply methods (Section 4.4.4).
@@ -289,7 +290,7 @@ public sealed class Task
     ///     Progress status (Section 5.2.5).
     /// </summary>
     [JsonPropertyName("progress")]
-    public string? Progress { get; init; }
+    public ProgressStatus? Progress { get; init; }
 
     /// <summary>
     ///     Progress updated timestamp (Section 5.2.6).

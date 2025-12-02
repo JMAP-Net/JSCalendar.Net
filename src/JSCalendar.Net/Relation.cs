@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using JSCalendar.Net.Enums;
 
 namespace JSCalendar.Net;
 
@@ -17,9 +18,8 @@ public sealed class Relation
     /// <summary>
     ///     Describes how the linked object is related to the linking object.
     ///     Default: empty Object (unspecified relationship)
-    ///     Keys MUST be one of: "first", "next", "child", "parent", or vendor-specific.
     ///     Values MUST be true.
     /// </summary>
     [JsonPropertyName("relation")]
-    public Dictionary<string, bool> RelationTypes { get; init; } = new();
+    public Dictionary<RelationType, bool> RelationTypes { get; init; } = new();
 }

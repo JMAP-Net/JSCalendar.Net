@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using JSCalendar.Net.Enums;
 
 namespace JSCalendar.Net;
 
@@ -41,18 +42,16 @@ public sealed class Participant
 
     /// <summary>
     ///     What kind of entity this participant is.
-    ///     Values: "individual", "group", "location", "resource"
     /// </summary>
     [JsonPropertyName("kind")]
-    public string? Kind { get; init; }
+    public ParticipantKind? Kind { get; init; }
 
     /// <summary>
     ///     Roles that this participant fulfills.
     ///     REQUIRED property. At least one role MUST be specified.
-    ///     Values: "owner", "attendee", "optional", "informational", "chair", "contact"
     /// </summary>
     [JsonPropertyName("roles")]
-    public required Dictionary<string, bool> Roles { get; init; }
+    public required Dictionary<ParticipantRole, bool> Roles { get; init; }
 
     /// <summary>
     ///     Location ID where this participant is expected to be.
@@ -68,11 +67,10 @@ public sealed class Participant
 
     /// <summary>
     ///     Participation status of this participant.
-    ///     Default: "needs-action"
-    ///     Values: "needs-action", "accepted", "declined", "tentative", "delegated"
+    ///     Default: NeedsAction
     /// </summary>
     [JsonPropertyName("participationStatus")]
-    public string ParticipationStatus { get; init; } = "needs-action";
+    public ParticipationStatus ParticipationStatus { get; init; } = ParticipationStatus.NeedsAction;
 
     /// <summary>
     ///     Note from the participant to explain their participation status.
@@ -89,11 +87,10 @@ public sealed class Participant
 
     /// <summary>
     ///     Who is responsible for sending scheduling messages.
-    ///     Default: "server"
-    ///     Values: "server", "client", "none"
+    ///     Default: Server
     /// </summary>
     [JsonPropertyName("scheduleAgent")]
-    public string ScheduleAgent { get; init; } = "server";
+    public ScheduleAgent ScheduleAgent { get; init; } = ScheduleAgent.Server;
 
     /// <summary>
     ///     Request the server to send a scheduling message.
@@ -163,7 +160,7 @@ public sealed class Participant
     ///     Only allowed for Task participants.
     /// </summary>
     [JsonPropertyName("progress")]
-    public string? Progress { get; init; }
+    public ProgressStatus? Progress { get; init; }
 
     /// <summary>
     ///     Date-time the progress property was last set.

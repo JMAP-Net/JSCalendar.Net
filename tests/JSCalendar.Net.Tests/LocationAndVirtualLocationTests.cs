@@ -1,4 +1,5 @@
 using System.Text.Json;
+using JSCalendar.Net.Enums;
 
 namespace JSCalendar.Net.Tests;
 
@@ -100,12 +101,12 @@ public class LocationAndVirtualLocationTests
         {
             Name = "Zoom Meeting",
             Uri = "https://zoom.us/j/123456789",
-            Features = new Dictionary<string, bool>
+            Features = new Dictionary<VirtualLocationFeature, bool>
             {
-                ["audio"] = true,
-                ["video"] = true,
-                ["chat"] = true,
-                ["screen"] = true
+                [VirtualLocationFeature.Audio] = true,
+                [VirtualLocationFeature.Video] = true,
+                [VirtualLocationFeature.Chat] = true,
+                [VirtualLocationFeature.Screen] = true
             }
         };
 
@@ -113,7 +114,7 @@ public class LocationAndVirtualLocationTests
         Assert.Equal("Zoom Meeting", vLoc.Name);
         Assert.NotNull(vLoc.Features);
         Assert.Equal(4, vLoc.Features.Count);
-        Assert.True(vLoc.Features["audio"]);
+        Assert.True(vLoc.Features[VirtualLocationFeature.Audio]);
     }
 
     [Fact]
@@ -140,10 +141,10 @@ public class LocationAndVirtualLocationTests
         {
             Name = "Teams Meeting",
             Uri = "https://teams.microsoft.com/l/meetup/...",
-            Features = new Dictionary<string, bool>
+            Features = new Dictionary<VirtualLocationFeature, bool>
             {
-                ["video"] = true,
-                ["screen"] = true
+                [VirtualLocationFeature.Video] = true,
+                [VirtualLocationFeature.Audio] = true,
             }
         };
 

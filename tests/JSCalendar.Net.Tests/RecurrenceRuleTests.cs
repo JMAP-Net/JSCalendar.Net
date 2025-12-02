@@ -1,4 +1,6 @@
 using System.Text.Json;
+using JSCalendar.Net.Enums;
+using DayOfWeek = JSCalendar.Net.Enums.DayOfWeek;
 
 namespace JSCalendar.Net.Tests;
 
@@ -12,15 +14,15 @@ public class RecurrenceRuleTests
         // Arrange & Act
         var rule = new RecurrenceRule
         {
-            Frequency = "daily"
+            Frequency = RecurrenceFrequency.Daily
         };
 
         // Assert
-        Assert.Equal("daily", rule.Frequency);
+        Assert.Equal(RecurrenceFrequency.Daily, rule.Frequency);
         Assert.Equal(1, rule.Interval);
         Assert.Equal("gregorian", rule.Rscale);
-        Assert.Equal("omit", rule.Skip);
-        Assert.Equal("mo", rule.FirstDayOfWeek);
+        Assert.Equal(RecurrenceSkip.Omit, rule.Skip);
+        Assert.Equal(DayOfWeek.Monday, rule.FirstDayOfWeek);
     }
 
     [Fact]
@@ -29,20 +31,20 @@ public class RecurrenceRuleTests
         // Arrange & Act
         var rule = new RecurrenceRule
         {
-            Frequency = "weekly",
-            ByDay = new List<NDay>
-            {
-                new() { Day = "mo" },
-                new() { Day = "we" },
-                new() { Day = "fr" }
-            }
+            Frequency = RecurrenceFrequency.Weekly,
+            ByDay =
+            [
+                new NDay { Day = DayOfWeek.Monday },
+                new NDay { Day = DayOfWeek.Wednesday },
+                new NDay { Day = DayOfWeek.Friday }
+            ]
         };
 
         // Assert
-        Assert.Equal("weekly", rule.Frequency);
+        Assert.Equal(RecurrenceFrequency.Weekly, rule.Frequency);
         Assert.NotNull(rule.ByDay);
         Assert.Equal(3, rule.ByDay.Count);
-        Assert.Equal("mo", rule.ByDay[0].Day);
+        Assert.Equal(DayOfWeek.Monday, rule.ByDay[0].Day);
     }
 
     [Fact]
@@ -51,13 +53,13 @@ public class RecurrenceRuleTests
         // Arrange & Act
         var rule = new RecurrenceRule
         {
-            Frequency = "monthly",
+            Frequency = RecurrenceFrequency.Monthly,
             Interval = 2,
             Count = 10
         };
 
         // Assert
-        Assert.Equal("monthly", rule.Frequency);
+        Assert.Equal(RecurrenceFrequency.Monthly, rule.Frequency);
         Assert.Equal(2, rule.Interval);
         Assert.Equal(10, rule.Count);
         Assert.Null(rule.Until);
@@ -72,12 +74,12 @@ public class RecurrenceRuleTests
         // Act
         var rule = new RecurrenceRule
         {
-            Frequency = "yearly",
+            Frequency = RecurrenceFrequency.Yearly,
             Until = until
         };
 
         // Assert
-        Assert.Equal("yearly", rule.Frequency);
+        Assert.Equal(RecurrenceFrequency.Yearly, rule.Frequency);
         Assert.Equal(until, rule.Until);
         Assert.Null(rule.Count);
     }
@@ -88,12 +90,9 @@ public class RecurrenceRuleTests
         // Arrange
         var rule = new RecurrenceRule
         {
-            Frequency = "weekly",
+            Frequency = RecurrenceFrequency.Weekly,
             Interval = 2,
-            ByDay = new List<NDay>
-            {
-                new() { Day = "mo" }
-            }
+            ByDay = [new NDay { Day = DayOfWeek.Monday }]
         };
 
         // Act
@@ -122,7 +121,7 @@ public class RecurrenceRuleTests
 
         // Assert
         Assert.NotNull(rule);
-        Assert.Equal("daily", rule.Frequency);
+        Assert.Equal(RecurrenceFrequency.Daily, rule.Frequency);
         Assert.Equal(3, rule.Interval);
     }
 
@@ -130,11 +129,11 @@ public class RecurrenceRuleTests
     public void NDay_Simple()
     {
         // Arrange & Act
-        var nday = new NDay { Day = "tu" };
+        var nday = new NDay { Day = DayOfWeek.Tuesday };
 
         // Assert
         Assert.Equal("NDay", nday.Type);
-        Assert.Equal("tu", nday.Day);
+        Assert.Equal(DayOfWeek.Tuesday, nday.Day);
         Assert.Null(nday.NthOfPeriod);
     }
 
@@ -144,12 +143,12 @@ public class RecurrenceRuleTests
         // Arrange & Act
         var nday = new NDay
         {
-            Day = "mo",
+            Day = DayOfWeek.Monday,
             NthOfPeriod = 1 // First Monday
         };
 
         // Assert
-        Assert.Equal("mo", nday.Day);
+        Assert.Equal(DayOfWeek.Monday, nday.Day);
         Assert.Equal(1, nday.NthOfPeriod);
     }
 
@@ -159,12 +158,12 @@ public class RecurrenceRuleTests
         // Arrange & Act
         var nday = new NDay
         {
-            Day = "fr",
+            Day = DayOfWeek.Friday,
             NthOfPeriod = -1 // Last Friday
         };
 
         // Assert
-        Assert.Equal("fr", nday.Day);
+        Assert.Equal(DayOfWeek.Friday, nday.Day);
         Assert.Equal(-1, nday.NthOfPeriod);
     }
 
@@ -174,17 +173,14 @@ public class RecurrenceRuleTests
         // Arrange & Act
         var rule = new RecurrenceRule
         {
-            Frequency = "monthly",
+            Frequency = RecurrenceFrequency.Monthly,
             Interval = 1,
-            ByDay = new List<NDay>
-            {
-                new() { Day = "mo", NthOfPeriod = 1 } // First Monday of month
-            },
+            ByDay = [new NDay { Day = DayOfWeek.Monday, NthOfPeriod = 1 }],
             Count = 12
         };
 
         // Assert
-        Assert.Equal("monthly", rule.Frequency);
+        Assert.Equal(RecurrenceFrequency.Monthly, rule.Frequency);
         Assert.Single(rule.ByDay);
         Assert.Equal(1, rule.ByDay[0].NthOfPeriod);
         Assert.Equal(12, rule.Count);
