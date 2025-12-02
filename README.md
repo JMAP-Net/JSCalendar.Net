@@ -8,13 +8,13 @@ representation of calendar data.
 
 ## Features
 
-✅ **Full RFC 8984 Compliance** - Complete implementation of the JSCalendar specification  
-✅ **Native .NET 10** - Built with the latest .NET features  
-✅ **Type-Safe** - Strongly-typed models with comprehensive validation  
-✅ **JSON Serialization** - Seamless integration with System.Text.Json  
-✅ **Recurrence Support** - Full support for recurring events with overrides  
-✅ **Localization** - Multi-language support via localizations  
-✅ **Time Zones** - Complete time zone handling
+- **Full RFC 8984 Compliance** - Complete implementation of the JSCalendar specification  
+- **Native .NET 10** - Built with the latest .NET features  
+- **Type-Safe** - Strongly-typed models with comprehensive validation  
+- **JSON Serialization** - Seamless integration with System.Text.Json  
+- **Recurrence Support** - Full support for recurring events with overrides  
+- **Localization** - Multi-language support via localizations  
+- **Time Zones** - Complete time zone handling
 
 ## Installation
 
@@ -427,7 +427,7 @@ var json = JsonSerializer.Serialize(myEvent, options);
 ### 1. Always Set Required Properties
 
 ```csharp
-// ✅ Good
+// Good
 var evt = new Event
 {
     Uid = Guid.NewGuid().ToString(),
@@ -435,17 +435,17 @@ var evt = new Event
     Start = new LocalDateTime(DateTime.Now)
 };
 
-// ❌ Bad - Missing required properties will cause errors
+// Bad - Missing required properties will cause errors
 var evt = new Event();
 ```
 
 ### 2. Use Meaningful UIDs
 
 ```csharp
-// ✅ Good - Descriptive and unique
+// Good - Descriptive and unique
 Uid = $"meeting-{DateTime.Now:yyyyMMdd}-{Guid.NewGuid():N}"
 
-// ❌ Bad - Not unique
+// Bad - Not unique
 Uid = "meeting"
 ```
 
@@ -505,15 +505,15 @@ in [RFC 8984](https://datatracker.ietf.org/doc/html/rfc8984).
 
 **Supported Sections:**
 
-- ✅ Section 2: Object Model (Event, Task, Group)
-- ✅ Section 4: Common Properties
-- ✅ Section 5: Type-Specific Properties
-- ✅ Recurrence Rules (Section 4.3)
-- ✅ PatchObject (Section 1.4.9)
-- ✅ Time Zones (Section 4.7)
-- ✅ Participants (Section 4.4)
-- ✅ Alerts (Section 4.5)
-- ✅ Localization (Section 4.6)
+- Section 2: Object Model (Event, Task, Group)
+- Section 4: Common Properties
+- Section 5: Type-Specific Properties
+- Recurrence Rules (Section 4.3)
+- PatchObject (Section 1.4.9)
+- Time Zones (Section 4.7)
+- Participants (Section 4.4)
+- Alerts (Section 4.5)
+- Localization (Section 4.6)
 
 ## Resources
 
@@ -525,9 +525,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- Built with ❤️ for the .NET community
 - Uses System.Text.Json for high-performance JSON serialization
+- Built with ❤️ for the .NET community
+- Made with ☕ and .NET
 
----
-
-Made with ☕ and .NET
