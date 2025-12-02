@@ -1,1 +1,4 @@
-<Solution />
+<Solution>
+    <Project Path="../tests/JSCalendar.Net.Tests/JSCalendar.Net.Tests.csproj"/>
+    <Project Path="JSCalendar.Net/JSCalendar.Net.csproj"/>
+</Solution>
