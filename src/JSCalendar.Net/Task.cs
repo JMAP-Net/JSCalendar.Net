@@ -6,7 +6,7 @@ namespace JSCalendar.Net;
 /// <summary>
 ///     Represents a task/todo item in JSCalendar format (RFC 8984 Section 2.2).
 /// </summary>
-public sealed class Task
+public sealed class Task : IJSCalendarObject
 {
     // Metadata Properties (Section 4.1)
 

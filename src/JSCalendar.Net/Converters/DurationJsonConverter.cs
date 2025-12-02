@@ -48,7 +48,7 @@ public partial class DurationJsonConverter : JsonConverter<Duration>
         };
     }
 
-    private static int? ParseIntGroup(Group group)
+    private static int? ParseIntGroup(System.Text.RegularExpressions.Group group)
     {
         if (group.Success && int.TryParse(group.Value, out var value)) return value;
 
