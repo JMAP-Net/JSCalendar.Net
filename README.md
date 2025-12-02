@@ -34,6 +34,7 @@ Install-Package JSCalendar.Net
 
 ```csharp
 using JSCalendar.Net;
+using JSCalendar.Net.Enums;
 using System.Text.Json;
 
 var meeting = new Event
@@ -44,7 +45,7 @@ var meeting = new Event
     Duration = new Duration { Hours = 1, Minutes = 30 },
     Title = "Team Meeting",
     Description = "Weekly team sync",
-    Status = "confirmed"
+    Status = EventStatus.Confirmed
 };
 
 // Serialize to JSON
@@ -116,10 +117,10 @@ var conference = new Event
         {
             Name = "Live Stream",
             Uri = "https://stream.example.com/conf2024",
-            Features = new Dictionary<string, bool>
+            Features = new Dictionary<VirtualLocationFeature, bool>
             {
-                ["video"] = true,
-                ["chat"] = true
+                [VirtualLocationFeature.Video] = true,
+                [VirtualLocationFeature.Chat] = true
             }
         }
     }
@@ -137,7 +138,7 @@ var task = new Task
     Updated = DateTimeOffset.UtcNow,
     Title = "Prepare presentation",
     Due = new LocalDateTime(new DateTime(2024, 12, 14, 17, 0, 0)),
-    Status = "in-process",
+    Progress = ProgressStatus.InProcess,
     PercentComplete = 60,
     Priority = 1
 };
@@ -159,14 +160,14 @@ var weeklyMeeting = new Event
     {
         new RecurrenceRule
         {
-            Frequency = "weekly",
+            Frequency = RecurrenceFrequency.Weekly,
             ByDay = new List<NDay>
             {
-                new NDay { Day = "mo" },
-                new NDay { Day = "tu" },
-                new NDay { Day = "we" },
-                new NDay { Day = "th" },
-                new NDay { Day = "fr" }
+                new NDay { Day = DayOfWeek.Monday },
+                new NDay { Day = DayOfWeek.Tuesday },
+                new NDay { Day = DayOfWeek.Wednesday },
+                new NDay { Day = DayOfWeek.Thursday },
+                new NDay { Day = DayOfWeek.Friday }
             },
             Until = new LocalDateTime(new DateTime(2024, 12, 31, 23, 59, 59))
         }
@@ -187,7 +188,7 @@ var recurringEvent = new Event
     Title = "Weekly Meeting",
     RecurrenceRules = new List<RecurrenceRule>
     {
-        new RecurrenceRule { Frequency = "weekly" }
+        new RecurrenceRule { Frequency = RecurrenceFrequency.Weekly }
     },
     RecurrenceOverrides = new Dictionary<LocalDateTime, PatchObject>
     {
@@ -223,22 +224,22 @@ var meeting = new Event
         {
             Name = "Alice Smith",
             Email = "alice@example.com",
-            Roles = new Dictionary<string, bool>
+            Roles = new Dictionary<ParticipantRole, bool>
             {
-                ["owner"] = true,
-                ["chair"] = true
+                [ParticipantRole.Owner] = true,
+                [ParticipantRole.Chair] = true
             },
-            ParticipationStatus = "accepted"
+            ParticipationStatus = ParticipationStatus.Accepted
         },
         ["attendee1"] = new Participant
         {
             Name = "Bob Johnson",
             Email = "bob@example.com",
-            Roles = new Dictionary<string, bool>
+            Roles = new Dictionary<ParticipantRole, bool>
             {
-                ["attendee"] = true
+                [ParticipantRole.Attendee] = true
             },
-            ParticipationStatus = "tentative",
+            ParticipationStatus = ParticipationStatus.Tentative,
             ExpectReply = true
         }
     }
@@ -262,18 +263,18 @@ var eventWithAlerts = new Event
             Trigger = new OffsetTrigger
             {
                 Offset = "-PT15M",  // 15 minutes before
-                RelativeTo = "start"
+                RelativeTo = TriggerRelation.Start
             },
-            Action = "display"
+            Action = AlertAction.Display
         },
         ["reminder1day"] = new Alert
         {
             Trigger = new OffsetTrigger
             {
                 Offset = "-P1D",  // 1 day before
-                RelativeTo = "start"
+                RelativeTo = TriggerRelation.Start
             },
-            Action = "email"
+            Action = AlertAction.Email
         }
     }
 };
