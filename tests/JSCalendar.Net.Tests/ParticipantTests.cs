@@ -1,4 +1,5 @@
 using System.Text.Json;
+using JSCalendar.Net.Enums;
 
 namespace JSCalendar.Net.Tests;
 
@@ -12,18 +13,18 @@ public class ParticipantTests
         // Arrange & Act
         var participant = new Participant
         {
-            Roles = new Dictionary<string, bool>
+            Roles = new Dictionary<ParticipantRole, bool>
             {
-                ["attendee"] = true
+                [ParticipantRole.Attendee] = true
             }
         };
 
         // Assert
         Assert.Equal("Participant", participant.Type);
         Assert.Single(participant.Roles);
-        Assert.Equal("needs-action", participant.ParticipationStatus);
+        Assert.Equal(ParticipationStatus.NeedsAction, participant.ParticipationStatus);
         Assert.False(participant.ExpectReply);
-        Assert.Equal("server", participant.ScheduleAgent);
+        Assert.Equal(ScheduleAgent.Server, participant.ScheduleAgent);
         Assert.Equal(0, participant.ScheduleSequence);
     }
 
@@ -35,9 +36,9 @@ public class ParticipantTests
         {
             Name = "John Doe",
             Email = "john@example.com",
-            Roles = new Dictionary<string, bool>
+            Roles = new Dictionary<ParticipantRole, bool>
             {
-                ["attendee"] = true
+                [ParticipantRole.Attendee] = true
             }
         };
 
@@ -54,19 +55,19 @@ public class ParticipantTests
         {
             Name = "Meeting Organizer",
             Email = "organizer@example.com",
-            Roles = new Dictionary<string, bool>
+            Roles = new Dictionary<ParticipantRole, bool>
             {
-                ["owner"] = true,
-                ["chair"] = true
+                [ParticipantRole.Owner] = true,
+                [ParticipantRole.Chair] = true
             },
-            ParticipationStatus = "accepted"
+            ParticipationStatus = ParticipationStatus.Accepted
         };
 
         // Assert
         Assert.Equal(2, participant.Roles.Count);
-        Assert.True(participant.Roles["owner"]);
-        Assert.True(participant.Roles["chair"]);
-        Assert.Equal("accepted", participant.ParticipationStatus);
+        Assert.True(participant.Roles[ParticipantRole.Owner]);
+        Assert.True(participant.Roles[ParticipantRole.Chair]);
+        Assert.Equal(ParticipationStatus.Accepted, participant.ParticipationStatus);
     }
 
     [Fact]
@@ -75,10 +76,10 @@ public class ParticipantTests
         // Arrange & Act
         var participant = new Participant
         {
-            Roles = new Dictionary<string, bool>
+            Roles = new Dictionary<ParticipantRole, bool>
             {
-                ["attendee"] = true,
-                ["optional"] = true
+                [ParticipantRole.Attendee] = true,
+                [ParticipantRole.Optional] = true
             }
         };
 
@@ -93,13 +94,13 @@ public class ParticipantTests
         var participant = new Participant
         {
             Email = "user@example.com",
-            Roles = new Dictionary<string, bool> { ["attendee"] = true },
-            ParticipationStatus = "declined",
+            Roles = new Dictionary<ParticipantRole, bool> { [ParticipantRole.Attendee] = true },
+            ParticipationStatus = ParticipationStatus.Declined,
             ParticipationComment = "Not available"
         };
 
         // Assert
-        Assert.Equal("declined", participant.ParticipationStatus);
+        Assert.Equal(ParticipationStatus.Declined, participant.ParticipationStatus);
         Assert.Equal("Not available", participant.ParticipationComment);
     }
 
@@ -110,7 +111,7 @@ public class ParticipantTests
         var participant = new Participant
         {
             Email = "delegate@example.com",
-            Roles = new Dictionary<string, bool> { ["attendee"] = true },
+            Roles = new Dictionary<ParticipantRole, bool> { [ParticipantRole.Attendee] = true },
             DelegatedFrom = new Dictionary<string, bool>
             {
                 ["original-participant"] = true
@@ -129,7 +130,7 @@ public class ParticipantTests
         var participant = new Participant
         {
             Name = "John Doe",
-            Roles = new Dictionary<string, bool> { ["attendee"] = true },
+            Roles = new Dictionary<ParticipantRole, bool> { [ParticipantRole.Attendee] = true },
             SendTo = new Dictionary<string, string>
             {
                 ["imip"] = "mailto:john@example.com",
@@ -151,11 +152,11 @@ public class ParticipantTests
         {
             Name = "Jane Smith",
             Email = "jane@example.com",
-            Roles = new Dictionary<string, bool>
+            Roles = new Dictionary<ParticipantRole, bool>
             {
-                ["attendee"] = true
+                [ParticipantRole.Attendee] = true
             },
-            ParticipationStatus = "accepted"
+            ParticipationStatus = ParticipationStatus.Accepted
         };
 
         // Act
@@ -191,7 +192,7 @@ public class ParticipantTests
         Assert.NotNull(participant);
         Assert.Equal("Bob Johnson", participant.Name);
         Assert.Equal("bob@example.com", participant.Email);
-        Assert.Equal("tentative", participant.ParticipationStatus);
+        Assert.Equal(ParticipationStatus.Tentative, participant.ParticipationStatus);
     }
 
     [Fact]
@@ -203,7 +204,7 @@ public class ParticipantTests
         // Act
         var participant = new Participant
         {
-            Roles = new Dictionary<string, bool> { ["attendee"] = true },
+            Roles = new Dictionary<ParticipantRole, bool> { [ParticipantRole.Attendee] = true },
             ScheduleSequence = 5,
             ScheduleUpdated = updated
         };
@@ -219,14 +220,14 @@ public class ParticipantTests
         // Arrange & Act
         var participant = new Participant
         {
-            Roles = new Dictionary<string, bool> { ["attendee"] = true },
-            Progress = "in-process",
+            Roles = new Dictionary<ParticipantRole, bool> { [ParticipantRole.Attendee] = true },
+            Progress = ProgressStatus.InProcess,
             PercentComplete = 50,
             ProgressUpdated = DateTimeOffset.UtcNow
         };
 
         // Assert
-        Assert.Equal("in-process", participant.Progress);
+        Assert.Equal(ProgressStatus.InProcess, participant.Progress);
         Assert.Equal(50, participant.PercentComplete);
         Assert.NotNull(participant.ProgressUpdated);
     }

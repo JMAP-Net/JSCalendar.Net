@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+using JSCalendar.Net.Enums;
+using DayOfWeek = JSCalendar.Net.Enums.DayOfWeek;
 
 namespace JSCalendar.Net;
 
@@ -16,10 +18,9 @@ public sealed class RecurrenceRule
     /// <summary>
     ///     Time span covered by each iteration of this recurrence rule.
     ///     REQUIRED property.
-    ///     Values: "yearly", "monthly", "weekly", "daily", "hourly", "minutely", "secondly"
     /// </summary>
     [JsonPropertyName("frequency")]
-    public required string Frequency { get; init; }
+    public required RecurrenceFrequency Frequency { get; init; }
 
     /// <summary>
     ///     Interval of iteration periods at which the recurrence repeats.
@@ -38,19 +39,17 @@ public sealed class RecurrenceRule
 
     /// <summary>
     ///     Behavior when expansion produces invalid dates.
-    ///     Default: "omit"
-    ///     Values: "omit", "backward", "forward"
+    ///     Default: Omit
     /// </summary>
     [JsonPropertyName("skip")]
-    public string Skip { get; init; } = "omit";
+    public RecurrenceSkip Skip { get; init; } = RecurrenceSkip.Omit;
 
     /// <summary>
     ///     Day on which the week is considered to start.
-    ///     Default: "mo"
-    ///     Values: "mo", "tu", "we", "th", "fr", "sa", "su"
+    ///     Default: Monday
     /// </summary>
     [JsonPropertyName("firstDayOfWeek")]
-    public string FirstDayOfWeek { get; init; } = "mo";
+    public DayOfWeek FirstDayOfWeek { get; init; } = DayOfWeek.Monday;
 
     /// <summary>
     ///     Days of the week on which to repeat.
@@ -152,10 +151,9 @@ public sealed class NDay
     /// <summary>
     ///     Day of the week.
     ///     REQUIRED property.
-    ///     Values: "mo", "tu", "we", "th", "fr", "sa", "su"
     /// </summary>
     [JsonPropertyName("day")]
-    public required string Day { get; init; }
+    public required DayOfWeek Day { get; init; }
 
     /// <summary>
     ///     Position of the day within the recurrence period.

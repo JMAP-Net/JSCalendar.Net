@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using JSCalendar.Net.Enums;
 
 namespace JSCalendar.Net;
 
@@ -37,8 +38,7 @@ public sealed class VirtualLocation
 
     /// <summary>
     ///     Features supported by this virtual location.
-    ///     Examples: audio, chat, feed, moderator, phone, screen, video
     /// </summary>
     [JsonPropertyName("features")]
-    public Dictionary<string, bool>? Features { get; init; }
+    public Dictionary<VirtualLocationFeature, bool>? Features { get; init; }
 }

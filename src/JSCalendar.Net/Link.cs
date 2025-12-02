@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using JSCalendar.Net.Enums;
 
 namespace JSCalendar.Net;
 
@@ -52,10 +53,9 @@ public sealed class Link
     /// <summary>
     ///     Intended purpose of a link to an image.
     ///     If set, the 'rel' property MUST be set to "icon".
-    ///     Values: "badge", "graphic", "fullsize", "thumbnail"
     /// </summary>
     [JsonPropertyName("display")]
-    public string? Display { get; init; }
+    public LinkDisplayType? Display { get; init; }
 
     /// <summary>
     ///     Human-readable, plain-text description of the resource.

@@ -1,4 +1,5 @@
 using System.Text.Json;
+using JSCalendar.Net.Enums;
 
 namespace JSCalendar.Net.Tests;
 
@@ -46,10 +47,10 @@ public class EventTests
         Assert.Equal("text/plain", evt.DescriptionContentType);
         Assert.False(evt.ShowWithoutTime);
         Assert.Equal(0, evt.Priority);
-        Assert.Equal("busy", evt.FreeBusyStatus);
-        Assert.Equal("public", evt.Privacy);
+        Assert.Equal(FreeBusyStatus.Busy, evt.FreeBusyStatus);
+        Assert.Equal(Privacy.Public, evt.Privacy);
         Assert.False(evt.UseDefaultAlerts);
-        Assert.Equal("confirmed", evt.Status);
+        Assert.Equal(EventStatus.Confirmed, evt.Status);
         Assert.False(evt.Excluded);
     }
 
@@ -86,7 +87,7 @@ public class EventTests
             Title = "Team Meeting",
             Description = "Weekly team sync",
             Priority = 5,
-            Status = "confirmed"
+            Status = EventStatus.Confirmed
         };
 
         // Act
@@ -257,7 +258,7 @@ public class EventTests
             Title = "Important Meeting",
             Description = "Quarterly review",
             Priority = 9,
-            Status = "confirmed"
+            Status = EventStatus.Confirmed
         };
 
         // Act
@@ -316,7 +317,7 @@ public class EventTests
                 {
                     Name = "John Doe",
                     Email = "john@example.com",
-                    Roles = new Dictionary<string, bool> { ["attendee"] = true }
+                    Roles = new Dictionary<ParticipantRole, bool> { [ParticipantRole.Attendee] = true }
                 }
             }
         };

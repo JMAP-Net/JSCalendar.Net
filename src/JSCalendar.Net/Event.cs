@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using JSCalendar.Net.Enums;
 
 namespace JSCalendar.Net;
 
@@ -184,17 +185,17 @@ public sealed class Event
 
     /// <summary>
     ///     Free/busy status (Section 4.4.2).
-    ///     Default: "busy"
+    ///     Default: Busy
     /// </summary>
     [JsonPropertyName("freeBusyStatus")]
-    public string FreeBusyStatus { get; init; } = "busy";
+    public FreeBusyStatus FreeBusyStatus { get; init; } = FreeBusyStatus.Busy;
 
     /// <summary>
     ///     Privacy classification (Section 4.4.3).
-    ///     Default: "public"
+    ///     Default: Public
     /// </summary>
     [JsonPropertyName("privacy")]
-    public string Privacy { get; init; } = "public";
+    public Privacy Privacy { get; init; } = Privacy.Public;
 
     /// <summary>
     ///     Methods by which participants may submit responses (Section 4.4.4).
@@ -277,8 +278,8 @@ public sealed class Event
 
     /// <summary>
     ///     Scheduling status of the event (Section 5.1.3).
-    ///     Default: "confirmed"
+    ///     Default: Confirmed
     /// </summary>
     [JsonPropertyName("status")]
-    public string Status { get; init; } = "confirmed";
+    public EventStatus Status { get; init; } = EventStatus.Confirmed;
 }

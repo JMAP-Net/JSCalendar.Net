@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using JSCalendar.Net.Enums;
 
 namespace JSCalendar.Net;
 
@@ -35,10 +36,9 @@ public sealed class Location
 
     /// <summary>
     ///     Relation between this location and the time of the event.
-    ///     Values: "start" or "end"
     /// </summary>
     [JsonPropertyName("relativeTo")]
-    public string? RelativeTo { get; init; }
+    public LocationRelation? RelativeTo { get; init; }
 
     /// <summary>
     ///     Time zone for this location.
