@@ -144,6 +144,118 @@ var task = new Task
 };
 ```
 
+### Groups
+
+Groups allow you to organize related events and tasks together.
+
+```csharp
+var projectGroup = new Group
+{
+    Uid = "project-2024",
+    Updated = DateTimeOffset.UtcNow,
+    Title = "Product Launch 2024",
+    Description = "All events and tasks related to the product launch",
+    Categories = new Dictionary<string, bool>
+    {
+        ["project"] = true,
+        ["marketing"] = true
+    },
+    Entries = new List<IJSCalendarObject>
+    {
+        new Event
+        {
+            Uid = "kickoff-meeting",
+            Updated = DateTimeOffset.UtcNow,
+            Start = new LocalDateTime(new DateTime(2024, 12, 1, 9, 0, 0)),
+            Duration = new Duration { Hours = 2 },
+            Title = "Project Kickoff Meeting",
+            Description = "Initial project planning session"
+        },
+        new Task
+        {
+            Uid = "prepare-marketing",
+            Updated = DateTimeOffset.UtcNow,
+            Title = "Prepare marketing materials",
+            Due = new LocalDateTime(new DateTime(2024, 12, 10, 17, 0, 0)),
+            Priority = 1,
+            Progress = ProgressStatus.Needs_Action
+        },
+        new Event
+        {
+            Uid = "launch-event",
+            Updated = DateTimeOffset.UtcNow,
+            Start = new LocalDateTime(new DateTime(2024, 12, 15, 10, 0, 0)),
+            Duration = new Duration { Hours = 4 },
+            Title = "Product Launch Event",
+            Status = EventStatus.Confirmed,
+            Locations = new Dictionary<string, Location>
+            {
+                ["venue"] = new Location
+                {
+                    Name = "Main Auditorium"
+                }
+            }
+        }
+    }
+};
+
+// Serialize to JSON
+var json = JsonSerializer.Serialize(projectGroup, new JsonSerializerOptions 
+{ 
+    WriteIndented = true 
+});
+```
+
+**Output:**
+
+```json
+{
+  "@type": "Group",
+  "uid": "project-2024",
+  "updated": "2024-12-03T10:00:00Z",
+  "title": "Product Launch 2024",
+  "description": "All events and tasks related to the product launch",
+  "categories": {
+    "project": true,
+    "marketing": true
+  },
+  "entries": [
+    {
+      "@type": "Event",
+      "uid": "kickoff-meeting",
+      "updated": "2024-12-03T10:00:00Z",
+      "start": "2024-12-01T09:00:00",
+      "duration": "PT2H",
+      "title": "Project Kickoff Meeting",
+      "description": "Initial project planning session"
+    },
+    {
+      "@type": "Task",
+      "uid": "prepare-marketing",
+      "updated": "2024-12-03T10:00:00Z",
+      "title": "Prepare marketing materials",
+      "due": "2024-12-10T17:00:00",
+      "priority": 1,
+      "progress": "needs-action"
+    },
+    {
+      "@type": "Event",
+      "uid": "launch-event",
+      "updated": "2024-12-03T10:00:00Z",
+      "start": "2024-12-15T10:00:00",
+      "duration": "PT4H",
+      "title": "Product Launch Event",
+      "status": "confirmed",
+      "locations": {
+        "venue": {
+          "name": "Main Auditorium"
+        }
+      }
+    }
+  ]
+}
+```
+
 ### Recurring Events
 
 Create events that repeat with flexible recurrence rules.
