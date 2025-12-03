@@ -7,7 +7,7 @@ namespace JSCalendar.Net;
 ///     Represents a calendar event in JSCalendar format (RFC 8984).
 ///     This is the main type for calendar events.
 /// </summary>
-public sealed class Event : IJSCalendarObject
+public class Event : IJSCalendarObject
 {
     // Metadata Properties (Section 4.1)
 
