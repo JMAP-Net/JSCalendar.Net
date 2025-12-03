@@ -4,6 +4,44 @@
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        
+        <!-- NuGet Package Metadata -->
+        <PackageId>JSCalendar.Net</PackageId>
+        <Title>JSCalendar.Net</Title>
+        <Description>A modern .NET library for processing and modeling calendar data according to the JSCalendar specification (RFC 8984).</Description>
+        <Authors>JMAP.Net</Authors>
+        <PackageTags>jscalendar;calendar;icalendar;rfc8984;json;events;tasks;scheduling</PackageTags>
+        <PackageProjectUrl>https://github.com/JMAP-Net/JSCalendar.Net</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/JMAP-Net/JSCalendar.Net</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <Copyright>Copyright (c) 2025 JMAP.Net</Copyright>
+        
+        <!-- Build Settings -->
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Nerdbank.GitVersioning" Version="3.9.50">
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\version.json">
+        <Link>version.json</Link>
+      </Content>
+    </ItemGroup>
 
 </Project>
