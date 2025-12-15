@@ -6,7 +6,7 @@ namespace JSCalendar.Net;
 /// <summary>
 ///     Represents a participant in a calendar event (RFC 8984 Section 4.4.6).
 /// </summary>
-public sealed class Participant
+public class Participant
 {
     /// <summary>
     ///     Type identifier. MUST be "Participant".
