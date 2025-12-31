@@ -39,7 +39,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\..\version.json">
+      <Content Include="..\..\version.json" Pack="false">
         <Link>version.json</Link>
       </Content>
     </ItemGroup>
